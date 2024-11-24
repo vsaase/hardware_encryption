@@ -37,11 +37,10 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    HardwareEncryption hardwareEncryptionPlugin = HardwareEncryption();
     MockHardwareEncryptionPlatform fakePlatform =
         MockHardwareEncryptionPlatform();
     HardwareEncryptionPlatform.instance = fakePlatform;
 
-    expect(await hardwareEncryptionPlugin.getPlatformVersion(), '42');
+    expect(await HardwareEncryption.getPlatformVersion(), '42');
   });
 }

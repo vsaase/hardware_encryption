@@ -1,15 +1,23 @@
 # hardware_encryption
 
-A new Flutter plugin project.
+Providing hardware based symmetric encryption for iOS and Android.
+
+This ensures that the encryption key is never kept in memory and can not be exposed.
+
+- iOS: uses Secure Enclave
+- Android: uses AES-GCM with KeyStore.
 
 ## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/to/develop-plugins),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+```
+final String alias = "<name of key>";
+await HardwareEncryption.generateKey(alias);
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+final String secret = "top_secret";
+final String? encrypted = HardwareEncryption.encrypt(alias, secret);
+final String? decrypted = HardwareEncryption.decrypt(alias, encrypted);
 
+assert(decrypted == secret);
+```
+
+Calling generateKey a second time with the same alias will not overwrite the existing key.

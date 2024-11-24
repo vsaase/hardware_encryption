@@ -24,15 +24,15 @@ void main() {
   });
 
   testWidgets('encrypt/decrypt test', (WidgetTester tester) async {
-    final HardwareEncryption plugin = HardwareEncryption();
     final String data = 'Hello, World!';
     final String alias = 'test';
-    final bool? success = await plugin.generateKey(alias);
+    final bool? success = await HardwareEncryption.generateKey(alias);
     expect(success, true);
-    final String? encryptedData = await plugin.encrypt(alias, data);
+    final String? encryptedData = await HardwareEncryption.encrypt(alias, data);
     print("Encrypted data: $encryptedData");
     expect(encryptedData?.isNotEmpty, true);
-    final String? decryptedData = await plugin.decrypt(alias, encryptedData!);
+    final String? decryptedData =
+        await HardwareEncryption.decrypt(alias, encryptedData!);
     print("Decrypted data: $decryptedData");
     expect(decryptedData, data);
   });

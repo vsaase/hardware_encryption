@@ -6,11 +6,11 @@ import 'package:secure_enclave/secure_enclave.dart';
 import 'hardware_encryption_platform_interface.dart';
 
 class HardwareEncryption {
-  Future<String?> getPlatformVersion() {
+  static Future<String?> getPlatformVersion() {
     return HardwareEncryptionPlatform.instance.getPlatformVersion();
   }
 
-  Future<bool?> generateKey(String alias) async {
+  static Future<bool?> generateKey(String alias) async {
     if (Platform.isIOS) {
       final secureEnclavePlugin = SecureEnclave();
       await secureEnclavePlugin.generateKeyPair(
@@ -28,7 +28,7 @@ class HardwareEncryption {
     }
   }
 
-  Future<String?> encrypt(String alias, String data) async {
+  static Future<String?> encrypt(String alias, String data) async {
     if (Platform.isIOS) {
       final secureEnclavePlugin = SecureEnclave();
       final res = await secureEnclavePlugin.encrypt(
@@ -46,7 +46,7 @@ class HardwareEncryption {
     return HardwareEncryptionPlatform.instance.encrypt(alias, data);
   }
 
-  Future<String?> decrypt(String alias, String data) async {
+  static Future<String?> decrypt(String alias, String data) async {
     if (Platform.isIOS) {
       final secureEnclavePlugin = SecureEnclave();
       final bytes = base64Decode(data);
